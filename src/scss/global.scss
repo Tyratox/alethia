@@ -1,0 +1,33 @@
+//include partials
+@import "fonts";
+
+@import "../../node_modules/normalize.css/normalize";
+
+html,
+body,
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: sans-serif;
+  font-weight: 300;
+  background-color: transparent;
+  line-height: 1.4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.redux-loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 3px;
+  background-color: #fff;
+
+  z-index: 99999;
+}
