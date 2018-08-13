@@ -38,7 +38,7 @@ export const fetchTasks = (visualize = false) => dispatch => {
   dispatch(fetchTasksAction(true, null, visualize, [], []));
 
   return fetch(
-    `https://a.wunderlist.com/api/v1/ical/11690894-dct8bnfmfhnqg56k79r771nje3.ics`,
+    `/wunderlist.php`,
     {
       method: "GET",
       credentials: "include"

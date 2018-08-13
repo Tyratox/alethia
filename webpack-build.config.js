@@ -107,8 +107,7 @@ module.exports = {
                     forceAllTransforms: true
                   }
                 ],
-                "@babel/preset-react",
-                "@babel/preset-typescript"
+                "@babel/preset-react"
               ],
               plugins: [
                 "babel-plugin-styled-components",

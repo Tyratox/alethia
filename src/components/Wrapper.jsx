@@ -46,62 +46,86 @@ const Background = styled.div`
  * @returns {Component} The component
  */
 class Wrapper extends React.Component {
-  render = () => {
-    let id;
-    const now = new Date(),
-      month = now.getMonth() + 1,
-      hours = now.getHours();
+  constructor() {
+    super();
+
+    this.state = { collectionId: this.getCollectionId() };
+  }
+
+  componentDidMount = () => {
+    this.updateBackground = setInterval(
+      () => this.setState({ collectionId: this.getCollectionId() }),
+      1000 * 60 * 10
+    );
+  };
+
+  componentWillUnmount = () => {
+    clearInterval(this.updateBackground);
+  };
+
+  /** Returns the collection id appropriate for the given date
+   * @param {Date} [date=new Date()] The date to get the collection id of
+   * @returns {number} The collection id
+   */
+  getCollectionId = (date = new Date()) => {
+    const month = date.getMonth() + 1,
+      hours = date.getHours();
+
     if (month >= 3 && month <= 5) {
       //spring
       if (hours >= 7 && hours <= 10) {
-        id = SPRING_MORNING_COLLECTION_ID;
+        return SPRING_MORNING_COLLECTION_ID;
       } else if (hours >= 11 && hours <= 17) {
-        id = SPRING_DAY_COLLECTION_ID;
+        return SPRING_DAY_COLLECTION_ID;
       } else if (hours >= 18 && hours <= 20) {
-        id = SPRING_EVENING_COLLECTION_ID;
+        return SPRING_EVENING_COLLECTION_ID;
       } else {
-        id = SPRING_NIGHT_COLLECTION_ID;
+        return SPRING_NIGHT_COLLECTION_ID;
       }
     } else if (month >= 6 && month <= 8) {
       //summer
       if (hours >= 6 && hours <= 9) {
-        id = SUMMER_MORNING_COLLECTION_ID;
+        return SUMMER_MORNING_COLLECTION_ID;
       } else if (hours >= 10 && hours <= 18) {
-        id = SUMMER_DAY_COLLECTION_ID;
+        return SUMMER_DAY_COLLECTION_ID;
       } else if (hours >= 19 && hours <= 22) {
-        id = SUMMER_EVENING_COLLECTION_ID;
+        return SUMMER_EVENING_COLLECTION_ID;
       } else {
-        id = SUMMER_NIGHT_COLLECTION_ID;
+        return SUMMER_NIGHT_COLLECTION_ID;
       }
     } else if (month >= 9 && month <= 11) {
       //autumn
       if (hours >= 7 && hours <= 10) {
-        id = AUTUMN_MORNING_COLLECTION_ID;
+        return AUTUMN_MORNING_COLLECTION_ID;
       } else if (hours >= 11 && hours <= 17) {
-        id = AUTUMN_DAY_COLLECTION_ID;
+        return AUTUMN_DAY_COLLECTION_ID;
       } else if (hours >= 18 && hours <= 20) {
-        id = AUTUMN_EVENING_COLLECTION_ID;
+        return AUTUMN_EVENING_COLLECTION_ID;
       } else {
-        id = AUTUMN_NIGHT_COLLECTION_ID;
+        return AUTUMN_NIGHT_COLLECTION_ID;
       }
     } else {
       //winter
       if (hours >= 8 && hours <= 11) {
-        id = WINTER_MORNING_COLLECTION_ID;
+        return WINTER_MORNING_COLLECTION_ID;
       } else if (hours >= 12 && hours <= 16) {
-        id = WINTER_DAY_COLLECTION_ID;
+        return WINTER_DAY_COLLECTION_ID;
       } else if (hours >= 17 && hours <= 19) {
-        id = WINTER_EVENING_COLLECTION_ID;
+        return WINTER_EVENING_COLLECTION_ID;
       } else {
-        id = WINTER_NIGHT_COLLECTION_ID;
+        return WINTER_NIGHT_COLLECTION_ID;
       }
     }
+  };
+
+  render = () => {
+    const { collectionId } = this.state;
 
     return (
       <StyledWrapper>
         <Background
           style={{
-            backgroundImage: `url(https://source.unsplash.com/collection/${id}/${
+            backgroundImage: `url(https://source.unsplash.com/collection/${collectionId}/${
               screen.width
             }x${screen.height})`
           }}

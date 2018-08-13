@@ -49,8 +49,16 @@ const Task = styled.li`
 class Tasks extends React.PureComponent {
   componentDidMount = () => {
     this.fetchData();
+
+    this.updateTasks = setInterval(this.fetchData, 1000 * 60 * 10);
   };
+
+  componentWillUnmount = () => {
+    clearInterval(this.updateTasks);
+  };
+
   fetchData = () => this.props.fetchTasks();
+
   render = () => {
     const { tasks } = this.props;
     return (
